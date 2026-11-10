@@ -1,0 +1,33 @@
+{
+  "name": "cycle-rush-kolkata",
+  "version": "1.0.0",
+  "description": "Cycle Rush: Kolkata Alleyways - 3D Indian Cycle Rickshaw Arcade Racing Game in Three.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "npx serve . -l 3000"
+  },
+  "dependencies": {
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "keywords": [
+    "threejs",
+    "game",
+    "arcade",
+    "cycle-rickshaw",
+    "kolkata",
+    "india"
+  ],
+  "author": "Antigravity Pair Programmer",
+  "license": "MIT"
+}

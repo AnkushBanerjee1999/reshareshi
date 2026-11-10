@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Cycle Rush: Kolkata Alleyways – 3D Indian Cycle Rickshaw Arcade Racing</title>
+  
+  <!-- Meta description -->
+  <meta name="description" content="Race a traditional Indian cycle rickshaw through the vibrant, narrow heritage alleyways of Kolkata in this 3D arcade browser game powered by Three.js.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛺</text></svg>">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./src/styles/main.css">
+  <link rel="stylesheet" href="./src/styles/menu.css">
+  <link rel="stylesheet" href="./src/styles/hud.css">
+
+  <!-- Three.js ES Module Import Map (Local Zero-Latency Loading) -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js",
+        "three/addons/": "./node_modules/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Master Game Application Container -->
+  <div id="app-container">
+    <!-- 3D WebGL Canvas Layer -->
+    <div id="canvas-container"></div>
+
+    <!-- UI Overlay Layer (Menus, HUD, Screens) -->
+    <div id="ui-container"></div>
+  </div>
+
+  <!-- JavaScript Entry Point -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
+
