@@ -59,12 +59,12 @@ export class World {
     const skyCtx = skyCanvas.getContext('2d');
 
     const skyGrad = skyCtx.createLinearGradient(0, 0, 0, 512);
-    skyGrad.addColorStop(0, '#0a0818');    // Deep midnight zenith
-    skyGrad.addColorStop(0.42, '#151228'); // Twilight indigo
-    skyGrad.addColorStop(0.72, '#241a3d'); // Deep dusk violet
-    skyGrad.addColorStop(0.90, '#3d204a'); // Rich dusk magenta/purple
-    skyGrad.addColorStop(0.97, '#b33939'); // Warm sunset ember
-    skyGrad.addColorStop(1, '#cd6133');    // Golden horizon groundline
+    skyGrad.addColorStop(0, '#0a0818');     // Midnight
+    skyGrad.addColorStop(0.35, '#151228');  // Indigo
+    skyGrad.addColorStop(0.6, '#241a3d');   // Violet
+    skyGrad.addColorStop(0.78, '#49305c');  // Intermediate violet
+    skyGrad.addColorStop(0.9, '#8d453f');   // Warm dusk
+    skyGrad.addColorStop(1, '#cd6133');     // Horizon embers
     skyCtx.fillStyle = skyGrad;
     skyCtx.fillRect(0, 0, 512, 512);
 
@@ -82,9 +82,12 @@ export class World {
 
   setupLighting() {
     // Twilight Urban Hemisphere Ambient Light (Night indigo sky + asphalt bounce)
-    const hemiLight = new THREE.HemisphereLight(0x4a47a3, 0x161422, 1.25);
+    const hemiLight = new THREE.HemisphereLight(0x4a47a3, 0x161422, 0.9);
     hemiLight.position.set(0, 50, 0);
     this.scene.add(hemiLight);
+
+    const violetFill = new THREE.AmbientLight(0x5f27cd, 0.35);
+    this.scene.add(violetFill);
 
     // Low-Angle Warm Moonlight / Distant Street Glow (matching reference screenshot sharp shadows)
     this.sunLight = new THREE.DirectionalLight(0xffeedd, 1.55);
@@ -105,10 +108,6 @@ export class World {
     this.scene.add(this.sunLight);
     this.scene.add(this.sunLight.target);
 
-    // Atmospheric Dusk/Night Fill Light
-    const fillLight = new THREE.DirectionalLight(0x5f27cd, 0.45);
-    fillLight.position.set(-28, 20, 24);
-    this.scene.add(fillLight);
   }
 
   update(playerZ) {
