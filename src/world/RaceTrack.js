@@ -39,29 +39,34 @@ export class RaceTrack {
 
     // Materials
     this.roadTexture = TextureGenerator.createRoadTexture();
+    this.roadTexture.anisotropy = 8;
     this.roadMaterial = new THREE.MeshStandardMaterial({
       map: this.roadTexture,
       roughness: 0.88,
       metalness: 0.04,
-      color: 0xffffff
+      color: 0xffffff,
+      side: THREE.DoubleSide
     });
 
     this.sidewalkTexture = TextureGenerator.createSidewalkTileTexture();
     this.sidewalkMat = new THREE.MeshStandardMaterial({
       map: this.sidewalkTexture,
       roughness: 0.85,
-      metalness: 0.02
+      metalness: 0.02,
+      side: THREE.DoubleSide
     });
 
     this.hazardCurbTexture = TextureGenerator.createHazardCurbTexture();
+    this.hazardCurbTexture.anisotropy = 8;
     this.curbMat = new THREE.MeshStandardMaterial({
       map: this.hazardCurbTexture,
       roughness: 0.65,
-      metalness: 0.0
+      metalness: 0.0,
+      side: THREE.DoubleSide
     });
 
-    this.curbStripeMat = new THREE.MeshBasicMaterial({ color: 0xffb703 });
-    this.groundMat = new THREE.MeshStandardMaterial({ color: 0x0e0d14, roughness: 1.0 });
+    this.curbStripeMat = new THREE.MeshBasicMaterial({ color: 0xffb703, side: THREE.DoubleSide });
+    this.groundMat = new THREE.MeshStandardMaterial({ color: 0x0e0d14, roughness: 1.0, side: THREE.DoubleSide });
 
     this.guardrailMat = new THREE.MeshStandardMaterial({
       color: 0xdcdde1,
@@ -646,14 +651,16 @@ export class RaceTrack {
       const stripePositions = [];
       const stripeIndices = [];
       const sStep = length / slices;
+      const stripeWidth = 0.18;
+      const curbTopY = (offset) => 0.34 - (0.12 / cw) * offset + 0.006;
       for (let j = 0; j <= slices; j++) {
         const z = startZ - j * sStep;
         const cx = this.spline.getCenterAtZ(z);
         const sign = curbSide === 'left' ? -1 : 1;
-        const xInner = cx + sign * (hw + 0.01);
-        const xOuter = cx + sign * (hw + 0.20);
-        stripePositions.push(xInner, 0.35, z);
-        stripePositions.push(xOuter, 0.35, z);
+        const xInner = cx + sign * hw;
+        const xOuter = cx + sign * (hw + stripeWidth);
+        stripePositions.push(xInner, curbTopY(0), z);
+        stripePositions.push(xOuter, curbTopY(stripeWidth), z);
         if (j < slices) {
           const i0 = j * 2, i1 = j * 2 + 1, i2 = (j + 1) * 2, i3 = (j + 1) * 2 + 1;
           if (curbSide === 'left') {
